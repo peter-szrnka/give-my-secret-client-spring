@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.peter-szrnka</groupId>
+    <artifactId>give-my-secret-client-spring</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Give My Secret Spring Boot client</name>
+
+    <description>Spring client for Give My Secret credential manager application</description>
+    <url>https://github.com/peter-szrnka/give-my-secret-client-spring</url>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <spring-boot.version>3.3.5</spring-boot.version>
+		<maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
+    </properties>
+
+    <developers>
+        <developer>
+            <email>szrnka.peter@gmail.com</email>
+            <name>Peter Szrnka</name>
+            <url>https://github.com/peter-szrnka</url>
+            <roles>
+                <role>Architect</role>
+                <role>Technical lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/peter-szrnka/give-my-secret-client-spring</url>
+        <connection>scm:git:ssh://git@github.com/peter-szrnka/give-my-secret-client-spring.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/peter-szrnka/give-my-secret-client-spring.git</developerConnection>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>GPL License</name>
+            <url>http://www.opensource.org/licenses/gpl-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-parent</artifactId>
+                <version>6.1.14</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.peter-szrnka</groupId>
+            <artifactId>give-my-secret-client-java</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+			<scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
