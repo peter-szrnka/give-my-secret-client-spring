@@ -137,4 +137,38 @@ class GiveMySecretValueResolvingPropertySourceTest {
         // act
         assertThrows(GiveMySecretPropertyResolutionException.class, () -> giveMySecretValueResolvingPropertySource.getProperty(PROPERTY_NAME1));
     }
+
+    @Test
+    void getProperty_whenPropertiesAreLoadedFromClassPath_thenResolve() throws Exception {
+        // arrange
+        PropertySource<?> propertySource = mock(PropertySource.class);
+        when(propertySource.getName()).thenReturn(MOCK_PROPERTY_SOURCE_NAME);
+        when(propertySource.getProperty(PROPERTY_NAME1)).thenReturn("giveMySecret(test-config1.properties:value)");
+        GiveMySecretClientService mockClientService = mock(GiveMySecretClientService.class);
+        when(mockClientService.getSecret(any(Properties.class))).thenReturn(Map.of("value", "my-value-1"));
+
+        GiveMySecretValueResolvingPropertySource giveMySecretValueResolvingPropertySource =
+                new GiveMySecretValueResolvingPropertySource(propertySource, mockClientService);
+
+        // act & assert (first call)
+        Object result = giveMySecretValueResolvingPropertySource.getProperty(PROPERTY_NAME1);
+        assertEquals("my-value-1", result);
+    }
+
+    @Test
+    void getProperty_whenPropertiesFileIsMissing_thenThrowException() throws Exception {
+        // arrange
+        PropertySource<?> propertySource = mock(PropertySource.class);
+        when(propertySource.getName()).thenReturn(MOCK_PROPERTY_SOURCE_NAME);
+        when(propertySource.getProperty(PROPERTY_NAME1)).thenReturn("giveMySecret(invalid.properties:value)");
+        GiveMySecretClientService mockClientService = mock(GiveMySecretClientService.class);
+        when(mockClientService.getSecret(any(Properties.class))).thenReturn(Map.of("value", "my-value-1"));
+
+        GiveMySecretValueResolvingPropertySource giveMySecretValueResolvingPropertySource =
+                new GiveMySecretValueResolvingPropertySource(propertySource, mockClientService);
+
+        // act & assert
+        assertThrows(GiveMySecretPropertyResolutionException.class, () -> giveMySecretValueResolvingPropertySource.getProperty(PROPERTY_NAME1));
+    }
+
 }
