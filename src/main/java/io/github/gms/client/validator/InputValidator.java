@@ -10,6 +10,9 @@ import static io.github.gms.client.util.Constants.*;
  */
 public class InputValidator {
 
+    private InputValidator() {
+    }
+
     public static void validatePlaceholderKey(String key) {
         if (key.split(":").length != 2) {
             throw new IllegalArgumentException("Invalid placeholder format: " + key);

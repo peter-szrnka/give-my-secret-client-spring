@@ -1,5 +1,6 @@
 package io.github.gms.client;
 
+import io.github.gms.client.exception.GiveMySecretPropertyResolutionException;
 import io.github.gms.client.service.GiveMySecretClientService;
 import io.github.gms.client.util.Constants;
 import org.springframework.core.env.PropertySource;
@@ -34,8 +35,8 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
     public Object getProperty(@NonNull String name) {
         Object value = super.getSource().getProperty(name);
 
-        if (value instanceof String) {
-            return resolvePlaceholders((String) value);
+        if (value instanceof String placeholder) {
+            return resolvePlaceholders(placeholder);
         }
 
         return value;
@@ -72,7 +73,7 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
                 try (FileInputStream fis = new FileInputStream(parts[0])) {
                     properties.load(fis);
                 }
-       
+
                 PROPERTIES_CACHE.put(parts[0], properties);
             }
 
@@ -86,7 +87,7 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
 
             return RESPONSE_CACHE.get(secretId).get(contentKey);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new GiveMySecretPropertyResolutionException(e);
         }
     }
 }

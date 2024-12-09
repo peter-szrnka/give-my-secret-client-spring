@@ -1,5 +1,6 @@
 package io.github.gms.client;
 
+import io.github.gms.client.exception.GiveMySecretPropertyResolutionException;
 import io.github.gms.client.service.GiveMySecretClientService;
 import org.junit.jupiter.api.Test;
 import org.mockito.stubbing.Answer;
@@ -134,6 +135,6 @@ class GiveMySecretValueResolvingPropertySourceTest {
         GiveMySecretValueResolvingPropertySource.clearCache();
 
         // act
-        assertThrows(RuntimeException.class, () -> giveMySecretValueResolvingPropertySource.getProperty(PROPERTY_NAME1));
+        assertThrows(GiveMySecretPropertyResolutionException.class, () -> giveMySecretValueResolvingPropertySource.getProperty(PROPERTY_NAME1));
     }
 }

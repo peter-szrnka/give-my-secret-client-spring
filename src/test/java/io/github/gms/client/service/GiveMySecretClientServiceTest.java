@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Peter Szrnka
  * @version 1.0
  */
-public class GiveMySecretClientServiceTest {
+class GiveMySecretClientServiceTest {
 
     private final GiveMySecretClientService service = new GiveMySecretClientService();
 
