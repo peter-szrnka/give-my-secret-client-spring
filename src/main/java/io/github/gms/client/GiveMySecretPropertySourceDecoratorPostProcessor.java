@@ -1,5 +1,6 @@
 package io.github.gms.client;
 
+import io.github.gms.client.service.GiveMySecretClientService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -9,6 +10,8 @@ import org.springframework.core.env.PropertySource;
 import java.util.Set;
 
 /**
+ * A custom {@link EnvironmentPostProcessor} that decorates all property sources with a custom {@link PropertySource<PropertySource>} instance.
+ *
  * @author Peter Szrnka
  * @version 1.0
  */
@@ -25,7 +28,8 @@ public class GiveMySecretPropertySourceDecoratorPostProcessor implements Environ
                 continue;
             }
 
-            propertySources.replace(source.getName(), new GiveMySecretValueResolvingPropertySource(source));
+            GiveMySecretClientService clientService = new GiveMySecretClientService();
+            propertySources.replace(source.getName(), new GiveMySecretValueResolvingPropertySource(source, clientService));
         }
     }
 }

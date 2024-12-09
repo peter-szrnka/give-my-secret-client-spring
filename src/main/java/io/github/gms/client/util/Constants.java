@@ -6,6 +6,7 @@ package io.github.gms.client.util;
  */
 public interface Constants {
     String PLACEHOLDER_PREFIX = "giveMySecret(";
+    String PLACEHOLDER_SUFFIX = ")";
     String EMPTY = "";
     String GIVE_MY_SECRET_KEYSTORE_FILE = "giveMySecret.keystore.file";
     String GIVE_MY_SECRET_KEYSTORE_TYPE = "giveMySecret.keystore.type";
