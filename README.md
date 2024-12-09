@@ -24,5 +24,5 @@ TODO
 
 
 # Code quality & health
-
--
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=peter-szrnka_give-my-secret-client-spring&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=peter-szrnka_give-my-secret-client-spring)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=peter-szrnka_give-my-secret-client-spring&metric=coverage)](https://sonarcloud.io/summary/new_code?id=peter-szrnka_give-my-secret-client-spring)
