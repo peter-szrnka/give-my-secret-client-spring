@@ -69,7 +69,10 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
 
             if (properties == null) {
                 properties = new Properties();
-                properties.load(new FileInputStream(parts[0]));
+                try (FileInputStream fis = new FileInputStream(parts[0])) {
+                    properties.load(fis);
+                }
+       
                 PROPERTIES_CACHE.put(parts[0], properties);
             }
 
