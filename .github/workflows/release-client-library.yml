@@ -1,4 +1,4 @@
-name: Release Java client library
+name: Release Spring Boot client library
 
 on:
   workflow_dispatch:
