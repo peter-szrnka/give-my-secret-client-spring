@@ -48,17 +48,6 @@
         <developerConnection>scm:git:ssh://git@github.com/peter-szrnka/give-my-secret-client-spring.git</developerConnection>
     </scm>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
     <licenses>
         <license>
             <name>GPL License</name>
@@ -250,6 +239,8 @@
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
                                     </gpgArguments>
+                                    <keyname>${env.GPG_KEY}</keyname>
+                                    <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
                                 </configuration>
                             </execution>
                         </executions>
