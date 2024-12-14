@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import static io.github.gms.client.util.Constants.PLACEHOLDER_PREFIX;
@@ -42,6 +43,19 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
         }
 
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        GiveMySecretValueResolvingPropertySource that = (GiveMySecretValueResolvingPropertySource) o;
+        return Objects.equals(giveMySecretClientService, that.giveMySecretClientService);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), giveMySecretClientService);
     }
 
     public static void clearCache() {
