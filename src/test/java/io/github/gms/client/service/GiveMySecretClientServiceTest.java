@@ -24,11 +24,11 @@ class GiveMySecretClientServiceTest {
     @Test
     void getSecret_whenServerIsAvailable_thenLoadValues() throws Exception {
         // arrange
-        try {
+        try (FileInputStream fis = new FileInputStream("src/test/resources/test-config1.properties")) {
             wireMockServer.start();
 
             Properties mockProperties = new Properties();
-            mockProperties.load(new FileInputStream("src/test/resources/test-config1.properties"));
+            mockProperties.load(fis);
             stubFor(get(urlEqualTo("/api/secret/secret1")).willReturn(aResponse().withBody("{\"value\":\"yes!\"}")));
 
             // act
