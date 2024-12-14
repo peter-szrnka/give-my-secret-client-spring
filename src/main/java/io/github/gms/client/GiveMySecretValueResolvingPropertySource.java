@@ -3,14 +3,14 @@ package io.github.gms.client;
 import io.github.gms.client.exception.GiveMySecretPropertyResolutionException;
 import io.github.gms.client.service.GiveMySecretClientService;
 import io.github.gms.client.util.Constants;
+import io.github.gms.client.util.FileUtil;
 import org.springframework.core.env.PropertySource;
 import org.springframework.lang.NonNull;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 import static io.github.gms.client.util.Constants.PLACEHOLDER_PREFIX;
@@ -44,6 +44,19 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
         return value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        GiveMySecretValueResolvingPropertySource that = (GiveMySecretValueResolvingPropertySource) o;
+        return Objects.equals(giveMySecretClientService, that.giveMySecretClientService);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), giveMySecretClientService);
+    }
+
     public static void clearCache() {
         PROPERTIES_CACHE.clear();
         RESPONSE_CACHE.clear();
@@ -72,7 +85,7 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
 
             if (properties == null) {
                 properties = new Properties();
-                try (InputStream fis = findPropertiesFile(parts[0])) {
+                try (InputStream fis = FileUtil.loadPropertiesFile(parts[0])) {
                     properties.load(fis);
                 }
 
@@ -90,14 +103,6 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
             return RESPONSE_CACHE.get(secretId).get(contentKey);
         } catch (Exception e) {
             throw new GiveMySecretPropertyResolutionException(e);
-        }
-    }
-
-    private InputStream findPropertiesFile(String key) {
-        try {
-            return new FileInputStream(key);
-        } catch (IOException ignored) {
-            return getClass().getClassLoader().getResourceAsStream(key);
         }
     }
 }
