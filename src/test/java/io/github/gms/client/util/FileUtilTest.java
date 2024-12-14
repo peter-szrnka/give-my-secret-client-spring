@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author Peter Szrnka
  * @version 1.0
  */
-public class FileUtilTest {
+class FileUtilTest {
 
     @Test
     void getProperty_whenPropertiesAreLoadedFromClassPath_thenResolve() throws Exception {

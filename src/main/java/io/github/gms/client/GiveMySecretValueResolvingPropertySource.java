@@ -3,6 +3,7 @@ package io.github.gms.client;
 import io.github.gms.client.exception.GiveMySecretPropertyResolutionException;
 import io.github.gms.client.service.GiveMySecretClientService;
 import io.github.gms.client.util.Constants;
+import io.github.gms.client.util.FileUtil;
 import org.springframework.core.env.PropertySource;
 import org.springframework.lang.NonNull;
 
@@ -14,7 +15,6 @@ import java.util.Properties;
 
 import static io.github.gms.client.util.Constants.PLACEHOLDER_PREFIX;
 import static io.github.gms.client.util.Constants.PLACEHOLDER_SUFFIX;
-import static io.github.gms.client.util.FileUtil.loadPropertiesFile;
 import static io.github.gms.client.validator.InputValidator.validatePlaceholderKey;
 
 /**
@@ -85,7 +85,7 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
 
             if (properties == null) {
                 properties = new Properties();
-                try (InputStream fis = loadPropertiesFile(parts[0])) {
+                try (InputStream fis = FileUtil.loadPropertiesFile(parts[0])) {
                     properties.load(fis);
                 }
 

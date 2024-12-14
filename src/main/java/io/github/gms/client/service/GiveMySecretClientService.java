@@ -6,7 +6,6 @@ import io.github.gms.client.model.GetSecretRequest;
 import io.github.gms.client.model.GiveMySecretClientConfig;
 import io.github.gms.client.util.Constants;
 
-import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -44,7 +43,7 @@ public class GiveMySecretClientService {
                 .secretId(properties.getProperty(Constants.GIVE_MY_SECRET_SECRET_ID, EMPTY));
     }
 
-    private static void initKeystoreSettings(GetSecretRequest.Builder builder, Properties properties) throws FileNotFoundException {
+    private static void initKeystoreSettings(GetSecretRequest.Builder builder, Properties properties) {
         validateKeystoreParameters(properties);
         builder.keystore(loadPropertiesFile(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_FILE)))
                 .keystoreType(KeystoreType.valueOf(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_TYPE, "PKCS12")))

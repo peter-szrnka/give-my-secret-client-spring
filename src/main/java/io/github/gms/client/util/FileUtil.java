@@ -8,7 +8,10 @@ import java.io.InputStream;
  * @author Peter Szrnka
  * @version 1.0
  */
-public final class FileUtil {
+public class FileUtil {
+
+    private FileUtil() {
+    }
 
     public static InputStream loadPropertiesFile(String key) {
         try {
