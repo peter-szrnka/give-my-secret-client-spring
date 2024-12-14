@@ -10,6 +10,7 @@ import org.springframework.core.env.PropertySource;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -67,6 +68,20 @@ class GiveMySecretValueResolvingPropertySourceTest {
 
         // assert
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void hashCode_whenCalled() {
+        // arrange
+        PropertySource<?> propertySource = mock(PropertySource.class);
+        when(propertySource.getName()).thenReturn(MOCK_PROPERTY_SOURCE_NAME);
+        GiveMySecretClientService mockClientService = mock(GiveMySecretClientService.class);
+
+        GiveMySecretValueResolvingPropertySource giveMySecretValueResolvingPropertySource =
+                new GiveMySecretValueResolvingPropertySource(propertySource, mockClientService);
+
+        // act
+        assertDoesNotThrow(giveMySecretValueResolvingPropertySource::hashCode);
     }
 
     private static Object[][] equalsTestData() {

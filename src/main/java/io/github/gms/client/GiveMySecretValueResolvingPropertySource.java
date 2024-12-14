@@ -53,6 +53,11 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
         return Objects.equals(giveMySecretClientService, that.giveMySecretClientService);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), giveMySecretClientService);
+    }
+
     public static void clearCache() {
         PROPERTIES_CACHE.clear();
         RESPONSE_CACHE.clear();
