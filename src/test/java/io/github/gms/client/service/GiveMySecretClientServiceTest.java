@@ -1,10 +1,13 @@
 package io.github.gms.client.service;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
+import java.util.Map;
 import java.util.Properties;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,6 +18,28 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class GiveMySecretClientServiceTest {
 
     private final GiveMySecretClientService service = new GiveMySecretClientService();
+
+    private final WireMockServer wireMockServer = new WireMockServer();
+
+    @Test
+    void getSecret_whenServerIsAvailable_thenLoadValues() throws Exception {
+        // arrange
+        try {
+            wireMockServer.start();
+
+            Properties mockProperties = new Properties();
+            mockProperties.load(new FileInputStream("src/test/resources/test-config1.properties"));
+            stubFor(get(urlEqualTo("/api/secret/secret1")).willReturn(aResponse().withBody("{\"value\":\"yes!\"}")));
+
+            // act
+            Map<String, String> response = service.getSecret(mockProperties);
+
+            // assert
+            assertEquals("yes!", response.get("value"));
+        } finally {
+            wireMockServer.stop();
+        }
+    }
 
     @Test
     void getSecret_whenKeystoreSettingsMissing_thenLoadDecryptedValue() throws Exception {
