@@ -6,8 +6,6 @@ import io.github.gms.client.util.Constants;
 import org.springframework.core.env.PropertySource;
 import org.springframework.lang.NonNull;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +14,7 @@ import java.util.Properties;
 
 import static io.github.gms.client.util.Constants.PLACEHOLDER_PREFIX;
 import static io.github.gms.client.util.Constants.PLACEHOLDER_SUFFIX;
+import static io.github.gms.client.util.FileUtil.loadPropertiesFile;
 import static io.github.gms.client.validator.InputValidator.validatePlaceholderKey;
 
 /**
@@ -86,7 +85,7 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
 
             if (properties == null) {
                 properties = new Properties();
-                try (InputStream fis = findPropertiesFile(parts[0])) {
+                try (InputStream fis = loadPropertiesFile(parts[0])) {
                     properties.load(fis);
                 }
 
@@ -104,14 +103,6 @@ public class GiveMySecretValueResolvingPropertySource extends PropertySource<Pro
             return RESPONSE_CACHE.get(secretId).get(contentKey);
         } catch (Exception e) {
             throw new GiveMySecretPropertyResolutionException(e);
-        }
-    }
-
-    private InputStream findPropertiesFile(String key) {
-        try {
-            return new FileInputStream(key);
-        } catch (IOException ignored) {
-            return getClass().getClassLoader().getResourceAsStream(key);
         }
     }
 }
