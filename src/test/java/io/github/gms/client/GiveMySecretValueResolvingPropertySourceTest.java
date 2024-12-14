@@ -140,7 +140,7 @@ class GiveMySecretValueResolvingPropertySourceTest {
         when(propertySource.getName()).thenReturn(MOCK_PROPERTY_SOURCE_NAME);
         when(propertySource.getProperty(PROPERTY_NAME1)).thenReturn("giveMySecret(src/test/resources/test-config1.properties:value)");
         when(propertySource.getProperty(PROPERTY_NAME2)).thenReturn("giveMySecret(src/test/resources/test-config2.properties:username)");
-        when(propertySource.getProperty(PROPERTY_NAME3)).thenReturn("giveMySecret(src/test/resources/test-config2.properties:password)");
+        when(propertySource.getProperty(PROPERTY_NAME3)).thenReturn("giveMySecret(test-config2.properties:password)");
         GiveMySecretClientService mockClientService = mock(GiveMySecretClientService.class);
         when(mockClientService.getSecret(any(Properties.class))).thenAnswer((Answer<Map<String, String>>) invocation -> {
             Map<String, String> result = new HashMap<>();

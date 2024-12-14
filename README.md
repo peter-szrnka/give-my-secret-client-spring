@@ -48,7 +48,7 @@ Next you have to add the placeholder:
 ```
 config.test=giveMySecret(gms-config1.properties:value)
 config.username=giveMySecret(src/main/resources/gms-config2.properties:username)
-config.password=giveMySecret(src/main/resources/gms-config2.properties:password)
+config.password=giveMySecret(gms-config2.properties:password)
 config.other1=giveMySecret(src/main/resources/gms-config2.properties:other1)
 config.other2=giveMySecret(src/main/resources/gms-config2.properties:other2)
 ```
