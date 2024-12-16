@@ -15,9 +15,30 @@ To use the official Spring client you have to add the library artifact to your M
     <dependency>
         <groupId>io.github.peter-szrnka</groupId>
         <artifactId>give-my-secret-client-spring</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 ```
+
+## Configuration properties
+
+| Property Key                          | Type    | Default value | dESCRIPTION                                              |
+| ------------------------------------- | ------- | ------------- | -------------------------------------------------------- |
+| giveMySeret.baseUrl *                 | String  | null          | Base URL of the Give My Secret instance                  |
+| giveMySecret.apiKey *                 | String  | null          | API key that will be sent to GMS                         |
+| giveMySecret.secretId *               | String  | null          | Unique secret identifier                                 |
+| giveMySecret.decrypt                  | Boolean | true          | Decryption enabled or not with the given keystore file   |
+| giveMySecret.keystore.file            | String  | null          | Path to the keystore file                                |
+| giveMySecret.keystore.type            | String  | PKCS12        | Type of the keystore file. Possible values: PKCS12 / JKS |
+| giveMySecret.keystore.credential      | String  | null          | Keystore credential                                      |
+| giveMySecret.keystore.alias           | String  | null          | Keystore alias that contains the encryption key          |
+| giveMySecret.keystore.aliasCredential | String  | null          | Keystore alias credential                                |
+| giveMySecret.maxRetry                 | int     | 3             | Maximum number of retries                                |
+| giveMySecret.retryDelay               | int     | 1000          | Delay between the retries                                |
+| giveMySecret.defaultConnectionTimeout | int     | 30000         | Connection timeout                                       |
+| giveMySecret.defaultReadTimeout       | int     | 30000         | Read timeout                                             |
+| giveMySecret.disableSslVerification   | Boolean | false         | SSL verification disabled or enabled                     |
+
+*-Mandatory property
 
 ## Code sample
 

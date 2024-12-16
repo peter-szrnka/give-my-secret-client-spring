@@ -4,13 +4,13 @@ import io.github.gms.client.builder.GiveMySecretClientBuilder;
 import io.github.gms.client.enums.KeystoreType;
 import io.github.gms.client.model.GetSecretRequest;
 import io.github.gms.client.model.GiveMySecretClientConfig;
-import io.github.gms.client.util.Constants;
 
 import java.util.Map;
 import java.util.Properties;
 
-import static io.github.gms.client.util.Constants.EMPTY;
+import static io.github.gms.client.model.ClientProperty.*;
 import static io.github.gms.client.util.FileUtil.loadPropertiesFile;
+import static io.github.gms.client.util.PropertyLoader.*;
 import static io.github.gms.client.validator.InputValidator.validateKeystoreParameters;
 
 /**
@@ -24,7 +24,7 @@ public class GiveMySecretClientService {
         io.github.gms.client.GiveMySecretClient client = GiveMySecretClientBuilder.create(config);
         GetSecretRequest.Builder builder = initApiKeyAndSecretId(properties);
 
-        if (Constants.TRUE.equals(properties.getProperty("giveMySecret.decrypt", Constants.TRUE))) {
+        if (getBooleanProperty(properties, DECRYPT)) {
             initKeystoreSettings(builder, properties);
         }
 
@@ -32,23 +32,30 @@ public class GiveMySecretClientService {
     }
 
     private static GiveMySecretClientConfig createConfig(Properties properties) {
-        return GiveMySecretClientConfig.builder()
-                .url(properties.getProperty("giveMySecret.baseUrl", "http://localhost:8080/"))
-                .build();
+        GiveMySecretClientConfig.Builder builder = GiveMySecretClientConfig.builder()
+                .url(getStringProperty(properties, BASE_URL));
+
+        builder.maxRetry(getIntProperty(properties, MAX_RETRY));
+        builder.retryDelay(getIntProperty(properties, RETRY_DELAY));
+        builder.defaultConnectionTimeout(getIntProperty(properties, CONNECTION_TIMEOUT));
+        builder.defaultReadTimeout(getIntProperty(properties, READ_TIMEOUT));
+        builder.disableSslVerification(getBooleanProperty(properties, DISABLE_SSL_VERIFICATION));
+
+        return builder.build();
     }
 
     private static GetSecretRequest.Builder initApiKeyAndSecretId(Properties properties) {
         return GetSecretRequest.builder()
-                .apiKey(properties.getProperty("giveMySecret.apiKey", EMPTY))
-                .secretId(properties.getProperty(Constants.GIVE_MY_SECRET_SECRET_ID, EMPTY));
+                .apiKey(getStringProperty(properties, API_KEY))
+                .secretId(getStringProperty(properties, SECRET_ID));
     }
 
     private static void initKeystoreSettings(GetSecretRequest.Builder builder, Properties properties) {
         validateKeystoreParameters(properties);
-        builder.keystore(loadPropertiesFile(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_FILE)))
-                .keystoreType(KeystoreType.valueOf(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_TYPE, "PKCS12")))
-                .keystoreCredential(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_CREDENTIAL))
-                .keystoreAlias(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_ALIAS))
-                .keystoreAliasCredential(properties.getProperty(Constants.GIVE_MY_SECRET_KEYSTORE_ALIAS_CREDENTIAL));
+        builder.keystore(loadPropertiesFile(getStringProperty(properties, KEYSTORE_FILE)))
+                .keystoreType(KeystoreType.valueOf(getStringProperty(properties, KEYSTORE_TYPE)))
+                .keystoreCredential(getStringProperty(properties, KEYSTORE_CREDENTIAL))
+                .keystoreAlias(getStringProperty(properties, KEYSTORE_ALIAS))
+                .keystoreAliasCredential(getStringProperty(properties, KEYSTORE_ALIAS_CREDENTIAL));
     }
 }
