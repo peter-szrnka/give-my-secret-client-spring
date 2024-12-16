@@ -4,32 +4,32 @@
 <module name="Checker">
 	<module name="TreeWalker">
 		<module name="EmptyBlock">
-			<property name="severity" value="warning" />
+			<clientProperty name="severity" value="warning" />
 		</module>
 		<module name="EmptyCatchBlock">
-			<property name="severity" value="warning" />
+			<clientProperty name="severity" value="warning" />
 		</module>
 		<module name="EqualsAvoidNull">
-			<property name="severity" value="warning" />
+			<clientProperty name="severity" value="warning" />
 		</module>
 		<module name="MagicNumber">
-			<property name="severity" value="error" />
-			<property name="ignoreAnnotation" value="true" />
-			<property name="ignoreFieldDeclaration" value="true" />
-			<property name="ignoreHashCodeMethod" value="true" />
-			<property name="ignoreNumbers" value="-1, 0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14, 15, 20, 30, 40, 50, 100, 120, 200, 300, 500, 600, 1000, 10000" />
-			<property name="tokens" value="NUM_INT, NUM_LONG" />
+			<clientProperty name="severity" value="error" />
+			<clientProperty name="ignoreAnnotation" value="true" />
+			<clientProperty name="ignoreFieldDeclaration" value="true" />
+			<clientProperty name="ignoreHashCodeMethod" value="true" />
+			<clientProperty name="ignoreNumbers" value="-1, 0, 1, 2, 3, 4, 5, 6, 7, 10, 11, 14, 15, 20, 30, 40, 50, 100, 120, 200, 300, 500, 600, 1000, 10000" />
+			<clientProperty name="tokens" value="NUM_INT, NUM_LONG" />
 		</module>
 		<module name="UnusedImports">
-			<property name="severity" value="error" />
+			<clientProperty name="severity" value="error" />
 		</module>
 		<module name="JavadocMethod">
-			<property name="severity" value="error" />
-			<property name="scope" value="public" />
-			<property name="allowMissingParamTags" value="true" />
+			<clientProperty name="severity" value="error" />
+			<clientProperty name="scope" value="public" />
+			<clientProperty name="allowMissingParamTags" value="true" />
 		</module>
 		<module name="JavadocType">
-		   <property name="authorFormat" value="\S"/>
+		   <clientProperty name="authorFormat" value="\S"/>
 		</module>
 	</module>
 </module>
