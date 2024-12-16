@@ -15,7 +15,7 @@ public enum ClientProperty implements Property {
     API_KEY("giveMySecret.apiKey", null),
     SECRET_ID(Constants.GIVE_MY_SECRET_SECRET_ID, null),
 
-    DECRYPT("giveMySecret.decrypt", "true"),
+    DECRYPT("giveMySecret.decrypt", true),
     KEYSTORE_FILE(Constants.GIVE_MY_SECRET_KEYSTORE_FILE, null),
     KEYSTORE_TYPE(Constants.GIVE_MY_SECRET_KEYSTORE_TYPE, "PKCS12"),
     KEYSTORE_CREDENTIAL(Constants.GIVE_MY_SECRET_KEYSTORE_CREDENTIAL, null),
