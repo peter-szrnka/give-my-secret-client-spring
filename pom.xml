@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.peter-szrnka</groupId>
     <artifactId>give-my-secret-client-spring</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>Give My Secret Spring Boot client</name>
 
     <description>Spring client for Give My Secret credential manager application</description>
