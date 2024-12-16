@@ -13,6 +13,9 @@ import static java.lang.Integer.parseInt;
  */
 public class PropertyLoader {
 
+    private PropertyLoader() {
+    }
+
     public static String getStringProperty(Properties properties, Property clientProperty) {
         return properties.getProperty(clientProperty.getKey(), (String) clientProperty.getDefaultValue());
     }

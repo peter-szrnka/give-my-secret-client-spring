@@ -5,6 +5,12 @@ import io.github.gms.client.enums.KeystoreType;
 import io.github.gms.client.model.GetSecretRequest;
 import io.github.gms.client.model.GiveMySecretClientConfig;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.IOException;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -19,7 +25,11 @@ import static io.github.gms.client.validator.InputValidator.validateKeystorePara
  */
 public class GiveMySecretClientService {
 
-    public Map<String, String> getSecret(Properties properties) throws Exception {
+    public Map<String, String> getSecret(Properties properties)
+            throws UnrecoverableKeyException, NoSuchPaddingException, IllegalBlockSizeException,
+            CertificateException, NoSuchAlgorithmException, IOException, KeyStoreException,
+            BadPaddingException, InvalidKeyException, KeyManagementException {
+
         GiveMySecretClientConfig config = createConfig(properties);
         io.github.gms.client.GiveMySecretClient client = GiveMySecretClientBuilder.create(config);
         GetSecretRequest.Builder builder = initApiKeyAndSecretId(properties);

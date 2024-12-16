@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Peter Szrnka
  * @version 1.0
  */
-public class PropertyLoaderTest {
+class PropertyLoaderTest {
 
     @ParameterizedTest
     @MethodSource("getStringPropertyTestData")
