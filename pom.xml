@@ -155,7 +155,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <!--suppress UnresolvedMavenProperty -->
-                    <argLine>${argLine} -Dnet.bytebuddy.experimental=true</argLine>
+                    <!--<argLine>${argLine} -Dnet.bytebuddy.experimental=true</argLine>-->
                 </configuration>
             </plugin>
         </plugins>
